@@ -1,0 +1,43 @@
+﻿:root {
+  /* Fonts */
+  --inter-100: "Inter-Thin", sans-serif;
+  --inter-200: "Inter-ExtraLight", sans-serif;
+  --inter-300: "Inter-Light", sans-serif;
+  --inter-400: "Inter-Regular", sans-serif;
+  --inter-500: "Inter-Medium", sans-serif;
+  --inter-600: "Inter-SemiBold", sans-serif;
+  --inter-700: "Inter-Bold", sans-serif;
+  --inter-800: "Inter-ExtraBold", sans-serif;
+  --inter-900: "Inter-Black", sans-serif;
+
+  /* Colors */
+  --lw-color-white-gray: #f6f6f6;
+  --lw-color-light-gray: #7D7D7D;
+  --lw-color-gary: #777777;
+  --lw-color-dark-gary: #222222;
+  --lw-color-black: #111111;
+  --lw-color-light-green: #B2FAB9;
+  --lw-color-green: #229934;
+  --lw-color-orange: #EC6608;
+  --lw-color-light-orange: #FF5500;
+  --lw-color-red: #E43A36;
+  --lw-color-dark-red: #da302c;
+
+  --lw-bg-color: #F7F7F7;
+  --lw-strock-color: #D4D8E2;
+
+  --default-font-size: 14px;
+  --default-font-weight: 400;
+
+  --white: #fff;
+  --color-disabled: rgba(0, 0, 0, 0.12);
+  --label-color: #7A6D66;
+  --label-color-active: #4D3C33;
+  --field-color: #C8C8C8;
+  --field-color-active: #7A6D66;
+  --field-color-error: #EC0000;
+  --additionally-text-color: #7A6D66;
+
+  --100vh: 100vh;
+  --lw-button-height: 40px;
+}

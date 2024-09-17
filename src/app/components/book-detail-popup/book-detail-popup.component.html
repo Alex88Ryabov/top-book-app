@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <img [src]="data.coverImage" alt="{{ data.title }} cover" class="cover-image">
+  <p><strong>Author:</strong> {{ data.author }}</p>
+  <p><strong>Year:</strong> {{ data.year }}</p>
+  <p><strong>Description:</strong> {{ data.description }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="edit()">Update</button>
+  <button mat-button (click)="delete()">Delete</button>
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

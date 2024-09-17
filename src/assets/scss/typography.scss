@@ -1,0 +1,60 @@
+﻿@mixin font-face($font-family, $file-path) {
+  @font-face {
+    font-family: $font-family;
+    font-display: swap;
+    font-weight: normal;
+    font-style: normal;
+
+    src: url("#{$file-path}.eot");
+    src: url("#{$file-path}.eot?#iefix") format("embedded-opentype"), url("#{$file-path}.woff") format("woff"), url("#{$file-path}.ttf") format("truetype");
+  }
+}
+
+@include font-face("Inter-Thin", "/assets/fonts/inter/Inter-Thin");
+@include font-face("Inter-ExtraLight", "/assets/fonts/inter/Inter-ExtraLight");
+@include font-face("Inter-Light", "/assets/fonts/inter/Inter-Light");
+@include font-face("Inter-Regular", "/assets/fonts/inter/Inter-Regular");
+@include font-face("Inter-Medium", "/assets/fonts/inter/Inter-Medium");
+@include font-face("Inter-SemiBold", "/assets/fonts/inter/Inter-SemiBold");
+@include font-face("Inter-Bold", "/assets/fonts/inter/Inter-Bold");
+@include font-face("Inter-ExtraBold", "/assets/fonts/inter/Inter-ExtraBold");
+@include font-face("Inter-Black", "/assets/fonts/inter/Inter-Black");
+
+.text-gray {
+  color: var(--lw-color-light-gray);
+}
+
+.text-success {
+  color: var(--lw-color-green);
+}
+
+.text-warning {
+  color: var(--lw-color-orange);
+}
+
+.text-error {
+  color: var(--field-color-error);
+}
+
+.text-info {
+  color: var(--lw-color-light-green);
+}
+
+.link-gray {
+  color: var(--lw-color-light-gray);
+}
+
+.text-underlined {
+  text-decoration: underline !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.asterisk {
+  &:after {
+    content: "*";
+    color: var(--color-brand);
+  }
+}

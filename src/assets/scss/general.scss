@@ -1,0 +1,28 @@
+﻿body {
+  font-family: var(--inter-400);
+  background-color: var(--lw-bg-color);
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.blockOnTop {
+  overflow: hidden !important;
+  position: fixed;
+  left: 0;
+  right: 0;
+}
+
+.disable-tap-blur {
+  &:active {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+
+.divider {
+  border-top: .5px solid var(--lw-strock-color);
+}

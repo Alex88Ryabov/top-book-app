@@ -1,0 +1,43 @@
+{
+  "overrides": [
+    {
+      "files": "*.ts",
+      "options": {
+        "parser": "typescript",
+        "singleQuote": true,
+        "trailingComma": "all",
+        "printWidth": 180,
+        "tabWidth": 2,
+        "useTabs": true,
+        "arrowParens": "always",
+        "endOfLine": "auto",
+        "importOrder": ["^@angular", "^@ngrx", "^[a-z]", "^~", "^/"],
+        "importSpacing": true,
+        "importExtensions": [".ts", ".js"]
+      }
+    },
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "angular",
+        "printWidth": 140,
+        "tabWidth": 2,
+        "useTabs": true,
+        "endOfLine": "auto"
+      }
+    },
+    {
+      "files": "*.module.ts",
+      "options": {
+        "singleQuote": true,
+        "trailingComma": "all",
+        "printWidth": 180,
+        "tabWidth": 2,
+        "useTabs": true,
+        "endOfLine": "auto",
+        "arrayBracketSpacing": true,
+        "arrayBracketNewline": true
+      }
+    }
+  ]
+}

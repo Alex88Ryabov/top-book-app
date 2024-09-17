@@ -1,0 +1,18 @@
+<div class="book-list">
+  @for (book of books; track book) {
+    <mat-card class="book-card" (click)="openDetail(book)">
+      <mat-card-header>
+        <mat-card-title>{{ book.title }}</mat-card-title>
+        <mat-card-subtitle>{{ book.author }} - {{ book.year }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="book.coverImage || '/assets/icons/svg/no-photo.svg'" alt="{{ book.title }} cover">
+      <mat-card-actions>
+        <button mat-button (click)="editBook(book)">Edit</button>
+        <button mat-button (click)="deleteBook(book)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+    <app-book [book]="book"></app-book>
+  } @empty {
+    No available books!
+  }
+</div>

@@ -1,0 +1,9 @@
+<div class="book-wrapper">
+  <img [ngSrc]="book().coverImage || defaultImage" width="150" height="210" alt="Book image" class="book-image">
+  <div class="book-info">
+    <h2>{{book().title}}</h2>
+    <p>{{book().author}}</p>
+    <p>{{book().year}}</p>
+  </div>
+  <div class="book-actions"></div>
+</div>
