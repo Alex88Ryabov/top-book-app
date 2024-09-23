@@ -1,74 +1,54 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Book } from '../interfaces/book.interface';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { booksMockArray } from '../models/books-mock';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class BookService {
-	private books: Book[] = [
-		{
-			id: 1,
-			title: 'Book 1',
-			author: 'Author 1',
-			year: 2021,
-			description: 'Description of Book 1',
-			coverImage: '',
-		},
-		// {
-		// 	id: 2,
-		// 	title: 'Book 2',
-		// 	author: 'Author 2',
-		// 	year: 2020,
-		// 	description: 'Description of Book 2',
-		// 	coverImage: 'https://via.placeholder.com/150',
-		// },
-		// {
-		// 	id: 3,
-		// 	title: 'Book 3',
-		// 	author: 'Author 3',
-		// 	year: 2019,
-		// 	description: 'Description of Book 3',
-		// 	coverImage: 'https://via.placeholder.com/150',
-		// },
-		// {
-		// 	id: 4,
-		// 	title: 'Book 4',
-		// 	author: 'Author 4',
-		// 	year: 2014,
-		// 	description: 'Description of Book 4',
-		// 	coverImage: 'https://via.placeholder.com/150',
-		// },
-		// {
-		// 	id: 5,
-		// 	title: 'Book 5',
-		// 	author: 'Author 5',
-		// 	year: 2018,
-		// 	description: 'Description of Book 5',
-		// 	coverImage: 'https://via.placeholder.com/150',
-		// },
-	];
+	public editMode: WritableSignal<boolean> = signal<boolean>(false);
+	public booksUpdated$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+	public searchPhrase$: BehaviorSubject<string> = new BehaviorSubject('');
+	public currentMaxBookId: number = 0;
+	private books: Book[] = booksMockArray;
 
-	public getBooks(): Book[] {
-		return this.books;
+	public getBooks(): Observable<Book[]> {
+		return of(this.books)!.pipe(tap((books) => (this.currentMaxBookId = Math.max(...books.map((book) => book.id!)))));
 	}
 
-	public getBookById(id: number): Book | undefined {
-		return this.books.find((book) => book.id === id);
+	public getBookById(id: number): Observable<Book> {
+		return of(this.books.find((book) => book.id === id)!);
 	}
 
 	public addBook(book: Book): void {
-		this.books.push({ ...book, id: this.books.length + 1 });
+		this.books.push({ ...book, id: this.currentMaxBookId + 1 });
+		this.booksUpdated$.next(true);
+	}
+
+	public getBooks$(searchPhrase: string): Observable<Book[]> {
+		return searchPhrase ? this.searchBooks(searchPhrase) : this.getBooks();
 	}
 
 	public updateBook(updatedBook: Book): void {
 		const index = this.books.findIndex((book) => book.id === updatedBook.id);
 		if (index !== -1) {
 			this.books[index] = updatedBook;
+			this.booksUpdated$.next(true);
 		}
 	}
 
 	public deleteBook(id: number): void {
-    const candidateToDelete = this.books.findIndex(book => book.id === id);
-    this.books.splice(candidateToDelete, 1);
-  }
+		const candidateToDelete = this.books.findIndex((book) => book.id === id);
+		this.books.splice(candidateToDelete, 1);
+	}
+
+	public searchBooks(searchTerm: string): Observable<Book[]> {
+		const lowerCaseTerm = searchTerm.toLowerCase();
+		const filteredBooks = this.books.filter(
+			(book) =>
+				book.title.toLowerCase().includes(lowerCaseTerm) || book.author.toLowerCase().includes(lowerCaseTerm) || book.year?.toString().toLowerCase().includes(lowerCaseTerm),
+		);
+		return of(filteredBooks);
+	}
 }

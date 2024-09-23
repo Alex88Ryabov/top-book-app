@@ -1,5 +1,72 @@
-.mat-toolbar {
+@import '../../../assets/scss/mixins';
+@import '../../../assets/scss/variables';
+
+:host {
   .spacer {
     flex: 1 1 auto;
   }
+  .logo-icon {
+    margin-left: -8px;
+    @include minWidth($large-phone-breakpoint) {
+      margin-left: unset;
+    }
+  }
+  .site-title {
+    display: none;
+    @include minWidth($large-phone-breakpoint) {
+      display: block;
+    }
+  }
+
+  .search-field {
+    background-color: var(--white);
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin-right: 10px;
+    @include minWidth($large-tablet-breakpoint) {
+      margin-right: 20px;
+    }
+
+    .search {
+      color: var(--black);
+      width: 100%;
+      transition: width 300ms ease-in-out;
+    }
+
+  }
+
+  mat-toolbar-row {
+    position: relative;
+    padding: 0 8px;
+    @include minWidth($small-desktop-breakpoint) {
+      padding: 0 16px;
+    }
+  }
+
+  ::ng-deep {
+    .open-search-icon {
+      position: absolute;
+      top: 50%;
+      right: 120px;
+      transform: translateY(-50%);
+      z-index: 1;
+      color: var(--white);
+      @include minWidth($large-tablet-breakpoint) {
+        right: 140px;
+      }
+    }
+
+    .expanded-icon {
+      z-index: 10;
+      color: var(--color-brand);
+    }
+  }
+
+  .add-book-btn {
+    color: var(--color-brand);
+  }
 }
+

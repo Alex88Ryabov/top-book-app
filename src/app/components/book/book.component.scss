@@ -1,29 +1,117 @@
-.book {
-  &-wrapper {
-    width: 350px;
-    height: 190px;
-    margin-top: 30px;
-    background-color: greenyellow;
-    border-radius: 16px;
-    position: relative;
-    &:hover {
-      background: #fff;
-      box-shadow: 4px 6px 20px -11px #6e7599;
+@import '../../../assets/scss/mixins';
+@import '../../../assets/scss/variables';
+
+:host {
+  .book {
+    display: grid;
+    box-shadow: 0 14px 24px #2d394b1a;
+
+    &-wrapper {
+      position: relative;
+      cursor: pointer;
+      @include minWidth($small-desktop-breakpoint) {
+        &:hover {
+          .book-actions {
+            opacity: 1;
+            transform: translate(-50%);
+          }
+        }
+      }
+    }
+
+    &-image {
+      width: 100%;
+      height: 200px;
+      @include minWidth($phone-breakpoint) {
+        height: 250px;
+      }
+      @include minWidth($tablet-breakpoint) {
+        height: 320px;
+      }
+      @include minWidth($large-tablet-breakpoint) {
+        height: 300px;
+      }
+    }
+
+    &-actions {
+      display: flex;
+      gap: 10px;
+      padding: 10px 0;
+      @include minWidth($small-desktop-breakpoint) {
+        padding: 10px 15px;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%); /* Изначально смещаем вниз */
+        opacity: 0; /* Скрываем кнопки */
+        transition: opacity 0.3s ease;
+      }
+    }
+
+    &-button {
+      width: 30px;
+      height: 30px;
+
+      .mat-icon {
+        transform: scale(0.7);
+      }
+
+      @include minWidth($large-phone-breakpoint) {
+        width: 40px;
+        height: 40px;
+        .mat-icon {
+          transform: scale(0.8);
+        }
+      }
+      @include minWidth($small-desktop-breakpoint) {
+        width: 50px;
+        height: 50px;
+        .mat-icon {
+          transform: scale(1);
+        }
+        &:hover {
+          background-color: var(--color-white-gray);
+
+          .mat-icon {
+            color: var(--color-brand);
+          }
+        }
+
+      }
+
+    }
+
+    &-info {
+      margin-top: 5px;
+
+      .title {
+        margin-bottom: 5px;
+        font-size: 18px;
+        line-height: 25px;
+        font-weight: 400;
+      }
+
+      .subtitle {
+        margin-bottom: 5px;
+        line-height: 18px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
     }
   }
 
-  &-info {
-    height: 100%;
-    padding-left: 160px;
-    padding-top: 10px;
-  }
-
-  &-image {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-radius: 16px;
-    background-color: #fff;
-    box-shadow: 17px 7px 20px -14px #737a9d;
+  // Зрізаемо заголовок якщо він перевищує 3 рядки
+  .text-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    max-height: 5em;
+    line-height: 1.5em;
   }
 }
+

@@ -1,12 +1,49 @@
-<h2 mat-dialog-title>{{ data.title }}</h2>
-<mat-dialog-content>
-  <img [src]="data.coverImage" alt="{{ data.title }} cover" class="cover-image">
-  <p><strong>Author:</strong> {{ data.author }}</p>
-  <p><strong>Year:</strong> {{ data.year }}</p>
-  <p><strong>Description:</strong> {{ data.description }}</p>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="edit()">Update</button>
-  <button mat-button (click)="delete()">Delete</button>
-  <button mat-button (click)="close()">Close</button>
+<button color="primary" class="close-button" mat-icon-button mat-dialog-close>
+  <mat-icon>close</mat-icon>
+</button>
+@if (!this.isEditMode()) {
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+  <mat-dialog-content class="info scroller">
+    <img [src]="data.coverImage" alt="{{ data.title }} cover" class="cover-image">
+    <p><strong>Author: </strong>{{ data.author }}</p>
+    <p><strong>Year: </strong>{{ data.year }}</p>
+    <p class="description"><strong>Description: </strong>{{ data.description }}</p>
+  </mat-dialog-content>
+} @else {
+  <h2 mat-dialog-title>{{data.id ? 'Edit' : 'Add'}} book</h2>
+  <mat-dialog-content class="scroller">
+
+    <form [formGroup]="bookForm" >
+      <div class="block">
+        <app-image-picker class="image" formControlName="coverImage"></app-image-picker>
+        <div class="info">
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput type="text" formControlName="title">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Author</mat-label>
+            <input matInput type="text" formControlName="author">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Year</mat-label>
+            <input matInput type="text" formControlName="year">
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-form-field class="textarea">
+        <mat-label>Description</mat-label>
+        <textarea matInput cdkTextareaAutosize formControlName="description"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+}
+<mat-dialog-actions class="actions">
+  @if (data.id) {
+    <button color="primary" mat-raised-button (click)="enableEditMode()">{{ enableEditModeTitle }}</button>
+  }
+  @if (this.isEditMode()) {
+    <button color="primary" mat-raised-button (click)="addOrUpdate()">{{data.id ? 'Update' : 'Add'}}</button>
+    <button color="primary" mat-raised-button (click)="delete()">Delete</button>
+  }
 </mat-dialog-actions>

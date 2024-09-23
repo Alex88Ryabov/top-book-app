@@ -1,4 +1,4 @@
-import {Directive, ElementRef, input, Input, InputSignal} from '@angular/core';
+import { Directive, ElementRef, input, InputSignal } from '@angular/core';
 
 @Directive({
 	selector: 'img[appImgDefault]',
@@ -13,6 +13,6 @@ export class BrokenImageLinkDirective {
 	constructor(private el: ElementRef<HTMLImageElement>) {}
 
 	public updateUrl(): void {
-		this.el.nativeElement.src = this.appImgDefault() || '/assets/images/svg/no-photos.svg';
+		this.el.nativeElement.src = this.appImgDefault();
 	}
 }

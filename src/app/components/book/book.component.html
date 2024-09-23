@@ -1,9 +1,32 @@
-<div class="book-wrapper">
-  <img [ngSrc]="book().coverImage || defaultImage" width="150" height="210" alt="Book image" class="book-image">
-  <div class="book-info">
-    <h2>{{book().title}}</h2>
-    <p>{{book().author}}</p>
-    <p>{{book().year}}</p>
-  </div>
-  <div class="book-actions"></div>
+<div class="book-wrapper" (click)="openDetail($event)">
+  <mat-card class="book" appearance="outlined">
+    <img [src]="book().coverImage!"
+         class="book-image"
+         mat-card-image
+         [appImgDefault]="defaultImage"
+         alt="{{ book().title }}">
+  </mat-card>
+    <div class="book-actions">
+      <button mat-fab color="primary" class="book-button" (click)="openDetail($event)">
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <button mat-fab color="primary" class="book-button" (click)="editBook($event)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-fab color="primary" class="book-button" (click)="delete($event)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <div class="book-info">
+      <h2 class="title text-clamp"
+          mat-card-title
+          #textElement="matTooltip"
+          (mouseover)="textElement.show()"
+          (mouseleave)="textElement.hide()"
+          [matTooltip]="book().title">
+        {{ book().title }}
+      </h2>
+      <p class="subtitle" mat-card-subtitle><strong>Author:</strong> {{ book().author }}</p>
+      <p class="subtitle" mat-card-subtitle><strong>Year:</strong> {{ book().year }}</p>
+    </div>
 </div>

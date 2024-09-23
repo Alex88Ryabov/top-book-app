@@ -1,5 +1,105 @@
-.cover-image {
-  width: 100%;
-  max-width: 200px;
-  border-radius: 8px;
+@import '../../../assets/scss/mixins';
+@import '../../../assets/scss/variables';
+
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 0 10px;
+  position: relative;
+
+  .mat-mdc-dialog-content {
+    padding-top: 0;
+    padding-bottom: 5px;
+  }
+
+  h2 {
+    margin: 0;
+  }
+
+  .cover-image {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 8px;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px 20px;
+    border-top: 1px solid var(--strock-color);
+    margin-left: 0;
+
+    @include minWidth($small-tablet-breakpoint) {
+      display: flex;
+    }
+
+    .mdc-button {
+      margin-left: 0;
+
+      @include minWidth($small-tablet-breakpoint) {
+        width: fit-content;
+      }
+    }
+  }
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 999;
+  }
+
+  .description {
+    white-space: pre-wrap;
+  }
+
+  .block {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @include minWidth($large-phone-breakpoint) {
+      gap: 10px;
+      grid-template-columns: auto 55%;
+    }
+
+    @include minWidth($small-tablet-breakpoint) {
+      gap: 10px;
+      grid-template-columns: auto 65%;
+    }
+
+    @include minWidth($large-tablet-breakpoint) {
+      gap: 20px;
+      grid-template-columns: auto 70%;
+    }
+
+    @include minWidth($small-desktop-breakpoint) {
+      gap: 20px;
+      grid-template-columns: auto 80%;
+    }
+
+    .info {
+      display: grid;
+      grid-template-columns: 1fr;
+      overflow: unset;
+    }
+
+    .image {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+  }
+
+  form {
+    .textarea {
+      width: 100%;
+    }
+  }
+
+  mat-dialog-content {
+    padding: 0;
+  }
 }
+
+

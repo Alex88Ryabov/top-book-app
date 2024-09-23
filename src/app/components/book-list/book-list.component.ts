@@ -1,44 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { BookComponent } from '../book/book.component';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../interfaces/book.interface';
-import { BookDetailPopupComponent } from '../book-detail-popup/book-detail-popup.component';
-import {BookComponent} from "../book/book.component";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
 	selector: 'app-book-list',
-	standalone: true,
 	templateUrl: './book-list.component.html',
 	styleUrls: ['./book-list.component.scss'],
-	imports: [MatCardModule, MatButtonModule, BookComponent],
+	standalone: true,
+	imports: [FormsModule, AsyncPipe, BookComponent],
 })
 export class BookListComponent implements OnInit {
-	books: Book[] = [];
+	private bookService: BookService = inject(BookService);
+	public books$!: Observable<Book[]>;
 
-	constructor(
-		private bookService: BookService,
-		public dialog: MatDialog,
-	) {}
+	constructor(private destroyRef: DestroyRef) {}
 
 	public ngOnInit(): void {
-		this.books = this.bookService.getBooks();
+		this.getBooks();
 	}
 
-	public openDetail(book: Book): void {
-		this.dialog.open(BookDetailPopupComponent, {
-			data: book,
+	private getBooks(): void {
+		this.bookService.searchPhrase$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((searchPhrase) => {
+			this.books$ = this.bookService.getBooks$(searchPhrase);
 		});
-	}
-
-	public editBook(book: Book): void {
-		// Implement edit functionality (e.g., navigate to edit form)
-	}
-
-	public deleteBook(book: Book): void {
-    if (book.id) {
-		  this.bookService.deleteBook(book.id);
-    }
 	}
 }

@@ -11,25 +11,22 @@
   --inter-900: "Inter-Black", sans-serif;
 
   /* Colors */
-  --lw-color-white-gray: #f6f6f6;
-  --lw-color-light-gray: #7D7D7D;
-  --lw-color-gary: #777777;
-  --lw-color-dark-gary: #222222;
-  --lw-color-black: #111111;
-  --lw-color-light-green: #B2FAB9;
-  --lw-color-green: #229934;
-  --lw-color-orange: #EC6608;
-  --lw-color-light-orange: #FF5500;
-  --lw-color-red: #E43A36;
-  --lw-color-dark-red: #da302c;
+  --color-white-gray: #f6f6f6;
+  --color-light-gray: #7D7D7D;
+  --color-gary: #777777;
+  --color-dark-gary: #222222;
+  --color-black: #111111;
+  --color-light-green: #B2FAB9;
+  --color-green: #229934;
 
-  --lw-bg-color: #F7F7F7;
-  --lw-strock-color: #D4D8E2;
+  --bg-color: #F7F7F7;
+  --strock-color: #D4D8E2;
 
   --default-font-size: 14px;
   --default-font-weight: 400;
 
   --white: #fff;
+  --black: #000;
   --color-disabled: rgba(0, 0, 0, 0.12);
   --label-color: #7A6D66;
   --label-color-active: #4D3C33;
@@ -38,6 +35,15 @@
   --field-color-error: #EC0000;
   --additionally-text-color: #7A6D66;
 
-  --100vh: 100vh;
-  --lw-button-height: 40px;
 }
+
+/* Sizes */
+
+$phone-breakpoint: 375px;
+$large-phone-breakpoint: 450px;
+$small-tablet-breakpoint: 550px;
+$tablet-breakpoint: 700px;
+$large-tablet-breakpoint: 875px;
+$small-desktop-breakpoint: 1131px;
+$laptop-breakpoint: 1280px;
+$extra-large-desktop-breakpoint: 1600px;

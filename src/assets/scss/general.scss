@@ -1,28 +1,24 @@
-﻿body {
-  font-family: var(--inter-400);
-  background-color: var(--lw-bg-color);
+﻿@import 'mixins';
+@import 'variables';
+
+body {
+  font-family: var(--inter-400), serif;
+  background-color: var(--bg-color);
 }
 
 .container {
-  width: 100%;
+  max-width: unset;
   margin: 0 auto;
-  padding: 0 16px;
-}
+  padding: 0 8px;
 
-.blockOnTop {
-  overflow: hidden !important;
-  position: fixed;
-  left: 0;
-  right: 0;
-}
-
-.disable-tap-blur {
-  &:active {
-    -webkit-tap-highlight-color: transparent;
+  @include minWidth($small-desktop-breakpoint) {
+    max-width: 80%;
+    padding: 0 16px;
   }
-}
-
-
-.divider {
-  border-top: .5px solid var(--lw-strock-color);
+  @include minWidth($extra-large-desktop-breakpoint) {
+    max-width: 70%;
+  }
+  @include minWidth(2200px) {
+    max-width: 1600px;
+  }
 }

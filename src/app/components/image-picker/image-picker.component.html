@@ -1,0 +1,16 @@
+<div class="image-uploader">
+  @if (isImagePresent()) {
+    <div class="image-preview-container">
+      <img [src]="previewUrl()"
+           [style]="{width: imageWidth, height: imageHeight}"
+           alt="Image Preview"
+           class="image-preview">
+      <button mat-mini-fab (click)="removeImage()" color="primary" class="remove-button"><mat-icon>delete</mat-icon></button>
+    </div>
+  } @else {
+    <label class="image-placeholder">
+      <span>Добавить картинку</span>
+      <input type="file" [style]="{visibility: 'hidden', position: 'absolute'}" (change)="onFileSelected($event)" accept="image/*">
+    </label>
+  }
+</div>

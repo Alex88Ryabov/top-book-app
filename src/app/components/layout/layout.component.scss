@@ -1,0 +1,11 @@
+@import '../../../assets/scss/mixins';
+@import '../../../assets/scss/variables';
+
+:host {
+  .height {
+    min-height: calc(100vh - 132px);
+    @include minWidth(599px) {
+      min-height: calc(100vh - 148px);
+    }
+  }
+}
