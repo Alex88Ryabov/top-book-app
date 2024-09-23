@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, signal, WritableSignal} from '@angular/core';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -9,8 +9,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { NgClass, NgStyle } from '@angular/common';
 import { BookService } from '../../services/book.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BookManipulationModalComponent } from '../book-detail-popup/book-manipulation-modal.component';
-import { tap } from 'rxjs';
+import { BookManipulationModalComponent } from '../book-manipulation-modal/book-manipulation-modal.component';
 import { BookModel } from '../../models/book.model';
 
 @Component({
@@ -38,9 +37,10 @@ import { BookModel } from '../../models/book.model';
 			transition('collapsed <=> expanded', [animate('300ms ease-in-out')]),
 		]),
 	],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
-	public isExpanded = false;
+	public isExpanded: WritableSignal<boolean> = signal<boolean>(false);
 
 	constructor(
 		private bookService: BookService,
@@ -48,27 +48,22 @@ export class HeaderComponent {
 	) {}
 
 	public toggleSearch(): void {
-		this.isExpanded = !this.isExpanded;
+		this.isExpanded.update((isExpanded) => !isExpanded);
 	}
 
 	public onInput(event: Event): void {
 		const searchPhrase = (event.target as HTMLInputElement).value;
 
-		this.bookService.searchPhrase$.next(searchPhrase);
+		this.bookService.searchPhrase.set(searchPhrase);
 	}
 
 	public addBook(event: Event): void {
 		event.stopPropagation();
-		this.bookService.editMode.set(true);
-		this.dialog
-			.open(BookManipulationModalComponent, {
-				data: new BookModel(),
-				autoFocus: false,
-				width: '90vw',
-				maxHeight: '90vh',
-			})
-			.afterClosed()
-			.pipe(tap(() => this.bookService.editMode.set(false)))
-			.subscribe();
+		this.dialog.open(BookManipulationModalComponent, {
+			data: { ...new BookModel(), editMode: true },
+			autoFocus: false,
+			width: '90vw',
+			maxHeight: '90vh',
+		});
 	}
 }

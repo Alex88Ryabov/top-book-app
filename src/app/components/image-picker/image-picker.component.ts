@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, signal } from '@angular/core';
+import {ChangeDetectionStrategy, Component, forwardRef, Input, signal} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
@@ -18,6 +18,7 @@ import { BrokenImageLinkDirective } from '../../directives/broken-image-link.dir
 			multi: true,
 		},
 	],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImagePickerComponent implements ControlValueAccessor {
 	@Input() imageWidth: string = '100%';
@@ -26,7 +27,7 @@ export class ImagePickerComponent implements ControlValueAccessor {
 	public previewUrl = signal<string>('');
 	public isImagePresent = signal<boolean>(true);
 
-	private onChange: (value: any) => void = () => {};
+	private onChange: (value: string) => void = () => {};
 	private onTouched: () => void = () => {};
 	private isDisabled: boolean = false;
 
@@ -37,7 +38,9 @@ export class ImagePickerComponent implements ControlValueAccessor {
 	}
 
 	public onFileSelected(event: any): void {
-		const file = event.target.files[0];
+		const [file] = event.target.files;
+    event.target.value = ''; // needed if we add the same file multiple times
+
 		if (file) {
 			const reader = new FileReader();
 			reader.onload = () => this.updateImage(reader.result as string);
@@ -53,11 +56,11 @@ export class ImagePickerComponent implements ControlValueAccessor {
 		this.updateImage(value);
 	}
 
-	public registerOnChange(fn: any): void {
+	public registerOnChange(fn: () => void): void {
 		this.onChange = fn;
 	}
 
-	public registerOnTouched(fn: any): void {
+	public registerOnTouched(fn: () => void): void {
 		this.onTouched = fn;
 	}
 

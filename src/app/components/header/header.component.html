@@ -3,10 +3,10 @@
     <span class="site-title">Top Book</span>
     <img class="logo-icon" src="/assets/icons/svg/logo.svg" width="40" height="40" alt="logo">
     <span class="spacer"></span>
-    <div class="search-field" [@expandSearch]="isExpanded ? 'expanded' : 'collapsed'">
+    <div class="search-field" [@expandSearch]="isExpanded() ? 'expanded' : 'collapsed'">
       <input class="search" (input)="onInput($event)" name="search-field" type="text" placeholder="Search">
     </div>
-    <mat-icon class="open-search-icon" [ngClass]="{'expanded-icon': isExpanded}" (click)="toggleSearch()">search</mat-icon>
+    <mat-icon class="open-search-icon" [ngClass]="{'expanded-icon': isExpanded()}" (click)="toggleSearch()">search</mat-icon>
     <button mat-raised-button class="add-book-btn" (click)="addBook($event)"><span>Add Book</span></button>
   </mat-toolbar-row>
 </mat-toolbar>

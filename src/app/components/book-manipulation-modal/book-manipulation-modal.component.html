@@ -1,9 +1,9 @@
 <button color="primary" class="close-button" mat-icon-button mat-dialog-close>
   <mat-icon>close</mat-icon>
 </button>
-@if (!this.isEditMode()) {
+@if (!editMode()) {
   <h2 mat-dialog-title>{{ data.title }}</h2>
-  <mat-dialog-content class="info scroller">
+  <mat-dialog-content class="info scroll">
     <img [src]="data.coverImage" alt="{{ data.title }} cover" class="cover-image">
     <p><strong>Author: </strong>{{ data.author }}</p>
     <p><strong>Year: </strong>{{ data.year }}</p>
@@ -11,7 +11,7 @@
   </mat-dialog-content>
 } @else {
   <h2 mat-dialog-title>{{data.id ? 'Edit' : 'Add'}} book</h2>
-  <mat-dialog-content class="scroller">
+  <mat-dialog-content class="scroll">
 
     <form [formGroup]="bookForm" >
       <div class="block">
@@ -42,7 +42,7 @@
   @if (data.id) {
     <button color="primary" mat-raised-button (click)="enableEditMode()">{{ enableEditModeTitle }}</button>
   }
-  @if (this.isEditMode()) {
+  @if (editMode()) {
     <button color="primary" mat-raised-button (click)="addOrUpdate()">{{data.id ? 'Update' : 'Add'}}</button>
     <button color="primary" mat-raised-button (click)="delete()">Delete</button>
   }

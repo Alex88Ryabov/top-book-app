@@ -118,7 +118,7 @@ Use modern JavaScript workflow tools like npm, Karma, and Webpack
 		coverImage: '/assets/images/angular2.webp',
 	},
 	{
-		id: 5,
+		id: 6,
 		title: 'Learning TypeScript: Enhance Your Web Development Skills Using Type-Safe JavaScript',
 		author: 'Josh Goldberg',
 		year: 2022,
@@ -135,7 +135,7 @@ helps you develop more quickly with fewer bugs`,
 		coverImage: '/assets/images/type-script2.webp',
 	},
 	{
-		id: 5,
+		id: 7,
 		title: 'Learning Angular - Fourth Edition: A no-nonsense guide to building web applications with Angular',
 		author: 'Aristeidis Bampakos, Pablo Deeleman',
 		year: 2023,
@@ -165,5 +165,14 @@ Create HTTP data services to access APIs and provide data to components
 Learn how to build Angular apps without modules in Angular 15.x with standalone APIs
 Improve your debugging and error handling skills during runtime and development`,
 		coverImage: '/assets/images/angular3.webp',
+	},
+	{
+		id: 8,
+		title: 'Kobzar Hardcover – Illustrated',
+		author: 'Taras Shevchenko',
+		year: 2013,
+		description: `Masterfully fulfilled by Peter Fedynsky, Voice of America journalist and expert on Ukrainian studies, this first ever English translation of the complete Kobzar brings out Ukraine's rich cultural heritage.
+As a foundational text, The Kobzar by Taras Shevchenko has played an important role in galvanizing the Ukrainian identity and in the development of Ukraine's written language and Ukrainian literature. The first editions had been censored by the Russian czar, but the book still made an enduring impact on Ukrainian culture. There is no reliable count of how many editions of the book have been published, but an official estimate made in 1976 put the figure in Ukraine at 110 during the Soviet period alone. That figure does not include Kobzars released before and after both in Ukraine and abroad. A multitude of translations of Shevchenko's verse into Slavic, Germanic and Romance languages, as well as Chinese, Japanese, Bengali, and many others attest to his impact on world culture as well. The poet is honored with more than 1250 monuments in Ukraine, and at least 125 worldwide, including such capitals as Washington, Ottawa, Buenos Aires, Warsaw, Moscow and Tashkent.`,
+		coverImage: '/assets/images/kobzar.webp',
 	},
 ];

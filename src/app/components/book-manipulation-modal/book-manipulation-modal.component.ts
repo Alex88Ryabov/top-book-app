@@ -1,4 +1,4 @@
-import { Component, computed, Inject, OnInit, Signal } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit, signal, WritableSignal} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { Book } from '../../interfaces/book.interface';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -6,7 +6,7 @@ import { BookService } from '../../services/book.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { filter } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -16,7 +16,7 @@ import { BookFormType } from '../../types/book-form.type';
 import { Nullable } from '../../types/nullable.type';
 
 @Component({
-	selector: 'app-book-detail-popup',
+	selector: 'app-book-manipulation-modal',
 	standalone: true,
 	templateUrl: './book-manipulation-modal.component.html',
 	styleUrls: ['./book-manipulation-modal.component.scss'],
@@ -28,7 +28,6 @@ import { Nullable } from '../../types/nullable.type';
 		MatDialogClose,
 		MatIconButton,
 		MatIconModule,
-		MatHint,
 		FormsModule,
 		MatFormField,
 		MatInput,
@@ -37,13 +36,14 @@ import { Nullable } from '../../types/nullable.type';
 		ImagePickerComponent,
 		ReactiveFormsModule,
 	],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookManipulationModalComponent implements OnInit {
-	public isEditMode: Signal<boolean> = computed(() => this.bookService.editMode());
 	public bookForm!: FormGroup<TypedForm<BookFormType>>;
+	public editMode: WritableSignal<boolean> = signal<boolean>(this.data.editMode);
 
 	constructor(
-		@Inject(MAT_DIALOG_DATA) public data: Book,
+		@Inject(MAT_DIALOG_DATA) public data: { editMode: boolean } & Book,
 		private dialog: MatDialog,
 		private bookService: BookService,
 	) {}
@@ -56,16 +56,16 @@ export class BookManipulationModalComponent implements OnInit {
 		this.bookForm = new FormGroup<TypedForm<BookFormType>>({
 			title: new FormControl<string>(this.data.title || '', [Validators.required, Validators.minLength(3)]),
 			author: new FormControl<string>(this.data.author || '', [Validators.required, Validators.minLength(2)]),
-			year: new FormControl<Nullable<number>>(this.data.year, [Validators.required, Validators.min(4)]),
+			year: new FormControl<Nullable<number>>(this.data.year, [Validators.required, Validators.max(4)]),
 			description: new FormControl<string>(this.data.description || ''),
 			coverImage: new FormControl<string>(this.data.coverImage || ''),
 		});
 	}
 
-  private mapFormData(): void {
-    const formValue = <Book>this.bookForm.value;
-    this.data = { ...this.data, ...formValue };
-  }
+	private mapFormData(): void {
+		const formValue = <Book>this.bookForm.value;
+		this.data = { ...this.data, ...formValue };
+	}
 
 	public delete(): void {
 		this.dialog
@@ -93,10 +93,10 @@ export class BookManipulationModalComponent implements OnInit {
 	}
 
 	public enableEditMode(): void {
-		this.bookService.editMode() ? this.bookService.editMode.set(false) : this.bookService.editMode.set(true);
+		this.editMode() ? this.editMode.set(false) : this.editMode.set(true);
 	}
 
 	public get enableEditModeTitle(): string {
-		return this.isEditMode() ? 'Disable Edit Mode' : 'Enable Edit Mode';
+		return this.editMode() ? 'Disable Edit Mode' : 'Enable Edit Mode';
 	}
 }
