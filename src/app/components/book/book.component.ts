@@ -5,7 +5,7 @@ import { BrokenImageLinkDirective } from '../../directives/broken-image-link.dir
 import { NgOptimizedImage } from '@angular/common';
 import { Book } from '../../interfaces/book.interface';
 import { MatIconModule } from '@angular/material/icon';
-import { BookDetailPopupComponent } from '../book-detail-popup/book-detail-popup.component';
+import { BookManipulationModalComponent } from '../book-detail-popup/book-manipulation-modal.component';
 import { BookService } from '../../services/book.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
@@ -47,7 +47,7 @@ export class BookComponent {
 
 	public openDetail(event: Event): void {
 		event.stopPropagation();
-		this.dialog.open(BookDetailPopupComponent, {
+		this.dialog.open(BookManipulationModalComponent, {
 			data: this.book(),
 			autoFocus: false,
 			width: '90vw',
@@ -59,7 +59,7 @@ export class BookComponent {
 		event.stopPropagation();
 		this.bookService.editMode.set(true);
 		this.dialog
-			.open(BookDetailPopupComponent, {
+			.open(BookManipulationModalComponent, {
 				data: this.book(),
 				autoFocus: false,
 				width: '90vw',

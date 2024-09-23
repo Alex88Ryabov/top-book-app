@@ -20,24 +20,22 @@ import { BrokenImageLinkDirective } from '../../directives/broken-image-link.dir
 	],
 })
 export class ImagePickerComponent implements ControlValueAccessor {
-	@Input() imageWidth: string = '100%'; // Ширина изображения
-	@Input() imageHeight: string = 'auto'; // Высота изображения
+	@Input() imageWidth: string = '100%';
+	@Input() imageHeight: string = 'auto';
 
-	public previewUrl = signal<string>(''); // Сигнал для превью изображения
-	public isImagePresent = signal<boolean>(true); // Сигнал для проверки наличия изображения
+	public previewUrl = signal<string>('');
+	public isImagePresent = signal<boolean>(true);
 
 	private onChange: (value: any) => void = () => {};
 	private onTouched: () => void = () => {};
 	private isDisabled: boolean = false;
 
-	// Обновление значения изображения
 	private updateImage(value: string | null): void {
 		this.previewUrl.set(value || '');
 		this.isImagePresent.set(!!value);
-		this.onChange(value || ''); // Уведомляем форму об изменении
+		this.onChange(value || '');
 	}
 
-	// Обработчик выбора файла
 	public onFileSelected(event: any): void {
 		const file = event.target.files[0];
 		if (file) {
@@ -51,7 +49,6 @@ export class ImagePickerComponent implements ControlValueAccessor {
 		this.updateImage(null);
 	}
 
-	// ControlValueAccessor methods
 	public writeValue(value: string): void {
 		this.updateImage(value);
 	}

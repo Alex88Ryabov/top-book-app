@@ -42,8 +42,8 @@
         position: absolute;
         top: 30%;
         left: 50%;
-        transform: translate(-50%); /* Изначально смещаем вниз */
-        opacity: 0; /* Скрываем кнопки */
+        transform: translate(-50%);
+        opacity: 0;
         transition: opacity 0.3s ease;
       }
     }
@@ -103,7 +103,6 @@
     }
   }
 
-  // Зрізаемо заголовок якщо він перевищує 3 рядки
   .text-clamp {
     display: -webkit-box;
     -webkit-box-orient: vertical;

@@ -9,7 +9,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { NgClass, NgStyle } from '@angular/common';
 import { BookService } from '../../services/book.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BookDetailPopupComponent } from '../book-detail-popup/book-detail-popup.component';
+import { BookManipulationModalComponent } from '../book-detail-popup/book-manipulation-modal.component';
 import { tap } from 'rxjs';
 import { BookModel } from '../../models/book.model';
 
@@ -25,14 +25,14 @@ import { BookModel } from '../../models/book.model';
 				'collapsed',
 				style({
 					display: 'none',
-					width: '0', // стандартная ширина
+					width: '0',
 				}),
 			),
 			state(
 				'expanded',
 				style({
 					display: 'flex',
-					width: '60%', // увеличенная ширина
+					width: '60%',
 				}),
 			),
 			transition('collapsed <=> expanded', [animate('300ms ease-in-out')]),
@@ -61,7 +61,7 @@ export class HeaderComponent {
 		event.stopPropagation();
 		this.bookService.editMode.set(true);
 		this.dialog
-			.open(BookDetailPopupComponent, {
+			.open(BookManipulationModalComponent, {
 				data: new BookModel(),
 				autoFocus: false,
 				width: '90vw',

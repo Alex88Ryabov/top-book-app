@@ -18,8 +18,8 @@ import { Nullable } from '../../types/nullable.type';
 @Component({
 	selector: 'app-book-detail-popup',
 	standalone: true,
-	templateUrl: './book-detail-popup.component.html',
-	styleUrls: ['./book-detail-popup.component.scss'],
+	templateUrl: './book-manipulation-modal.component.html',
+	styleUrls: ['./book-manipulation-modal.component.scss'],
 	imports: [
 		MatDialogContent,
 		MatDialogActions,
@@ -38,7 +38,7 @@ import { Nullable } from '../../types/nullable.type';
 		ReactiveFormsModule,
 	],
 })
-export class BookDetailPopupComponent implements OnInit {
+export class BookManipulationModalComponent implements OnInit {
 	public isEditMode: Signal<boolean> = computed(() => this.bookService.editMode());
 	public bookForm!: FormGroup<TypedForm<BookFormType>>;
 
@@ -62,17 +62,10 @@ export class BookDetailPopupComponent implements OnInit {
 		});
 	}
 
-	private get formControl(): TypedForm<BookFormType> {
-		return this.bookForm.controls;
-	}
-
-	private mapFormData(): void {
-		this.data.title = this.bookForm.controls.title!.value!;
-		this.data.author = this.formControl.author!.value!;
-		this.data.year = this.formControl.year!.value!;
-		this.data.description = this.formControl.description!.value!;
-		this.data.coverImage = this.formControl.coverImage!.value || '';
-	}
+  private mapFormData(): void {
+    const formValue = <Book>this.bookForm.value;
+    this.data = { ...this.data, ...formValue };
+  }
 
 	public delete(): void {
 		this.dialog
