@@ -4,6 +4,7 @@ import { AsyncPipe } from '@angular/common';
 import { BookComponent } from '../book/book.component';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../interfaces/book.interface';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
 	selector: 'app-book-list',
@@ -12,6 +13,12 @@ import { Book } from '../../interfaces/book.interface';
 	standalone: true,
 	imports: [FormsModule, AsyncPipe, BookComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	animations: [
+		trigger('bookAnimation', [
+			transition(':enter', [style({ opacity: 0, transform: 'scale(0.8)' }), animate('300ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))]),
+			transition(':leave', [animate('300ms ease-in', style({ opacity: 0, transform: 'scale(0.8)' }))]),
+		]),
+	],
 })
 export class BookListComponent {
 	public books: WritableSignal<Signal<Book[]>> = signal(this.bookService.books);

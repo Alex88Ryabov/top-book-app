@@ -4,16 +4,18 @@
 @if (!editMode()) {
   <h2 mat-dialog-title>{{ data.title }}</h2>
   <mat-dialog-content class="info scroll">
-    <img [src]="data.coverImage" alt="{{ data.title }} cover" class="cover-image">
+    <img [src]="data.coverImage"
+         [appImgDefault]="defaultImage"
+         alt="{{ data.title }} cover"
+         class="cover-image">
     <p><strong>Author: </strong>{{ data.author }}</p>
     <p><strong>Year: </strong>{{ data.year }}</p>
     <p class="description"><strong>Description: </strong>{{ data.description }}</p>
   </mat-dialog-content>
 } @else {
-  <h2 mat-dialog-title>{{data.id ? 'Edit' : 'Add'}} book</h2>
+  <h2 mat-dialog-title>{{ data.id ? 'Edit' : 'Add' }} book</h2>
   <mat-dialog-content class="scroll">
-
-    <form [formGroup]="bookForm" >
+    <form [formGroup]="bookForm">
       <div class="block">
         <app-image-picker class="image" formControlName="coverImage"></app-image-picker>
         <div class="info">
@@ -43,7 +45,7 @@
     <button color="primary" mat-raised-button (click)="enableEditMode()">{{ enableEditModeTitle }}</button>
   }
   @if (editMode()) {
-    <button color="primary" mat-raised-button (click)="addOrUpdate()">{{data.id ? 'Update' : 'Add'}}</button>
+    <button color="primary" mat-raised-button (click)="addOrUpdate()">{{ data.id ? 'Update' : 'Add' }}</button>
     <button color="primary" mat-raised-button (click)="delete()">Delete</button>
   }
 </mat-dialog-actions>

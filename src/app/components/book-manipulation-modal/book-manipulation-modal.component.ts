@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject, OnInit, signal, WritableSignal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { Book } from '../../interfaces/book.interface';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -14,6 +14,7 @@ import { ImagePickerComponent } from '../image-picker/image-picker.component';
 import { TypedForm } from '../../types/typed-form.type';
 import { BookFormType } from '../../types/book-form.type';
 import { Nullable } from '../../types/nullable.type';
+import { BrokenImageLinkDirective } from '../../directives/broken-image-link.directive';
 
 @Component({
 	selector: 'app-book-manipulation-modal',
@@ -35,12 +36,14 @@ import { Nullable } from '../../types/nullable.type';
 		MatLabel,
 		ImagePickerComponent,
 		ReactiveFormsModule,
+		BrokenImageLinkDirective,
 	],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookManipulationModalComponent implements OnInit {
-	public bookForm!: FormGroup<TypedForm<BookFormType>>;
 	public editMode: WritableSignal<boolean> = signal<boolean>(this.data.editMode);
+	public bookForm!: FormGroup<TypedForm<BookFormType>>;
+	public defaultImage = '/assets/icons/svg/no-photo.svg';
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: { editMode: boolean } & Book,

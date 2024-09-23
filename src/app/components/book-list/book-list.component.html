@@ -1,7 +1,6 @@
 <div class="book-list">
   @for (book of books()(); track book) {
-      <app-book class="book" [book]="book"></app-book>
-
+    <app-book class="book" [book]="book" [@bookAnimation]></app-book>
   } @empty {
     <p>No available books!</p>
   }
