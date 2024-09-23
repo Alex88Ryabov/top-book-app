@@ -57,9 +57,9 @@ export class BookManipulationModalComponent implements OnInit {
 
 	private attachForm(): void {
 		this.bookForm = new FormGroup<TypedForm<BookFormType>>({
-			title: new FormControl<string>(this.data.title || '', [Validators.required, Validators.minLength(3)]),
+			title: new FormControl<string>(this.data.title || '', [Validators.required, Validators.minLength(2)]),
 			author: new FormControl<string>(this.data.author || '', [Validators.required, Validators.minLength(2)]),
-			year: new FormControl<Nullable<number>>(this.data.year, [Validators.required, Validators.max(4)]),
+			year: new FormControl<Nullable<number>>(this.data.year, [Validators.required, Validators.maxLength(4)]),
 			description: new FormControl<string>(this.data.description || ''),
 			coverImage: new FormControl<string>(this.data.coverImage || ''),
 		});

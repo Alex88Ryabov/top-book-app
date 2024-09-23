@@ -45,7 +45,7 @@
     <button color="primary" mat-raised-button (click)="enableEditMode()">{{ enableEditModeTitle }}</button>
   }
   @if (editMode()) {
-    <button color="primary" mat-raised-button (click)="addOrUpdate()">{{ data.id ? 'Update' : 'Add' }}</button>
+    <button [disabled]="bookForm.invalid" color="primary" mat-raised-button (click)="addOrUpdate()">{{ data.id ? 'Update' : 'Add' }}</button>
     <button color="primary" mat-raised-button (click)="delete()">Delete</button>
   }
 </mat-dialog-actions>
